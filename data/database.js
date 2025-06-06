@@ -14,7 +14,7 @@ async function connectToDatabase() {
     client = new MongoClient(uri);
     await client.connect();
     console.log('✅ Connected to MongoDB');
-    db = client.db('contacts_db'); // Specify your database name here
+    db = client.db('Health_db'); // Specify your database name here
   }
   return client;
 }

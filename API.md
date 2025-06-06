@@ -1,7 +1,7 @@
 # Health and Recipe API
 
 ## Base URL:
-`https://health-recipe-api.onrender.com`
+`https://cse341-project2-z10v.onrender.com`
 
 ---
 
