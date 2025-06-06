@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../data/database');
 const Recipe = require('../models/Recipes');
+const { ObjectId } = require('mongodb');
 
 // Check DB connection middleware
 router.use(async (req, res, next) => {
@@ -39,7 +40,7 @@ router.get('/', async (req, res) => {
 // GET a single recipe by ID
 router.get('/:id', async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id);
+    const recipe = await Recipe.findById(new ObjectId(req.params.id));
     if (!recipe) {
       return res.status(404).json({
         success: false,
@@ -107,7 +108,7 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const updateData = { ...req.body, updatedAt: new Date() };
 
-    const result = await Recipe.update(id, updateData);
+    const result = await Recipe.update(new ObjectId(id), updateData);
     if (!result.matchedCount) {
       return res.status(404).json({
         success: false,
@@ -115,7 +116,7 @@ router.put('/:id', async (req, res) => {
       });
     }
 
-    const updatedRecipe = await Recipe.findById(id);
+    const updatedRecipe = await Recipe.findById(new ObjectId(id));
     res.json({
       success: true,
       data: updatedRecipe
@@ -133,7 +134,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await Recipe.delete(id);
+    const result = await Recipe.delete(new ObjectId(id));
 
     if (!result.deletedCount) {
       return res.status(404).json({

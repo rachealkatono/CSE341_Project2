@@ -3,7 +3,7 @@ const db = require('../data/database');
 
 class HealthTip {
   static getDatabase() {
-    return db.getDatabase();
+    return db.getDb();
   }
 
   static async findAll() {

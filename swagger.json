@@ -5,9 +5,12 @@
     "description": "API for managing health tips and recipes with CRUD operations",
     "version": "1.0.0"
   },
-  "host": "three41project2.onrender.com",
+  "host": "cse-341-hs48.onrender.com",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "http",
+    "https"
+  ],
   "paths": {
     "/": {
       "get": {

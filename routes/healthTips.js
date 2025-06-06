@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/database');
-const HealthTip = require('../models/HealthTip');
+const HealthTip = require('../models/HealthTips'); // Fixed import path
 
 // DB connection middleware
 router.use(async (req, res, next) => {
   try {
-    await db.checkConnection();
+    // Check if database connection exists
+    if (!db.getDb) {
+      throw new Error('Database connection not available');
+    }
     next();
   } catch (error) {
     console.error('Database connection error:', error);

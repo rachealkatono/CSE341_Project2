@@ -19,6 +19,11 @@ async function connectToDatabase() {
   return client;
 }
 
+// Alternative function name for compatibility
+async function initDb() {
+  return await connectToDatabase();
+}
+
 function getDb() {
   if (!db) {
     throw new Error('Database not initialized. Call connectToDatabase first.');
@@ -26,4 +31,17 @@ function getDb() {
   return db;
 }
 
-module.exports = { connectToDatabase, getDb };
+// Alternative function name for compatibility
+function getDatabase() {
+  if (!db) {
+    throw new Error('Database not initialized. Call connectToDatabase first.');
+  }
+  return { db: () => db };
+}
+
+module.exports = { 
+  connectToDatabase, 
+  initDb,
+  getDb,
+  getDatabase
+};
