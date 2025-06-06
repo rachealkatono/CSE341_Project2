@@ -1,0 +1,268 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "HealthTips & Recipes API",
+    "description": "API for managing health tips and recipes with CRUD operations",
+    "version": "1.0.0"
+  },
+  "host": "three41project2.onrender.com",
+  "basePath": "/",
+  "schemes": ["https"],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Hello World"],
+        "description": "Welcome endpoint",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/healthtips/": {
+      "get": {
+        "tags": ["HealthTips"],
+        "description": "Get all health tips",
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "Successfully retrieved all health tips" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "post": {
+        "tags": ["HealthTips"],
+        "description": "Create a new health tip",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Health tip object to be created",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "description", "category", "publishedDate", "isActive", "effectiveness"],
+              "properties": {
+                "title": { "type": "string", "example": "Stay Hydrated" },
+                "description": { "type": "string", "example": "Drink at least 8 glasses of water daily" },
+                "category": { "type": "string", "example": "Wellness" },
+                "publishedDate": { "type": "string", "format": "date", "example": "2024-01-10" },
+                "isActive": { "type": "boolean", "example": true },
+                "effectiveness": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "example": 4.7
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Health tip created successfully" },
+          "400": { "description": "Validation failed" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/healthtips/{id}": {
+      "get": {
+        "tags": ["HealthTips"],
+        "description": "Get a single health tip by ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Health tip ID"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successfully retrieved health tip" },
+          "400": { "description": "Invalid health tip ID format" },
+          "404": { "description": "Health tip not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "put": {
+        "tags": ["HealthTips"],
+        "description": "Update a health tip by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Health tip ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Health tip object with updated values",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string", "example": "Stay Hydrated - Updated" },
+                "description": { "type": "string", "example": "Drink more water during summer" },
+                "category": { "type": "string", "example": "Hydration" },
+                "publishedDate": { "type": "string", "format": "date", "example": "2024-01-15" },
+                "isActive": { "type": "boolean", "example": false },
+                "effectiveness": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5,
+                  "example": 4.9
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Health tip updated successfully" },
+          "400": { "description": "Validation failed or invalid ID" },
+          "404": { "description": "Health tip not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "tags": ["HealthTips"],
+        "description": "Delete a health tip by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Health tip ID"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Health tip deleted successfully" },
+          "400": { "description": "Invalid health tip ID format" },
+          "404": { "description": "Health tip not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/recipes/": {
+      "get": {
+        "tags": ["Recipes"],
+        "description": "Get all recipes",
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "Successfully retrieved all recipes" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "post": {
+        "tags": ["Recipes"],
+        "description": "Create a new recipe",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Recipe object to be created",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["name", "ingredients", "instructions", "cookTime", "calories", "servings", "isVegetarian"],
+              "properties": {
+                "name": { "type": "string", "example": "Quinoa Salad" },
+                "ingredients": { "type": "string", "example": "Quinoa, tomatoes, cucumbers, lemon juice" },
+                "instructions": { "type": "string", "example": "Cook quinoa, mix with chopped veggies, drizzle lemon juice" },
+                "cookTime": { "type": "string", "example": "20 minutes" },
+                "calories": { "type": "number", "example": 350 },
+                "servings": { "type": "number", "example": 2 },
+                "isVegetarian": { "type": "boolean", "example": true }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": { "description": "Recipe created successfully" },
+          "400": { "description": "Validation failed" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "get": {
+        "tags": ["Recipes"],
+        "description": "Get a single recipe by ID",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Recipe ID"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successfully retrieved recipe" },
+          "400": { "description": "Invalid recipe ID format" },
+          "404": { "description": "Recipe not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "put": {
+        "tags": ["Recipes"],
+        "description": "Update a recipe by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Recipe ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Recipe object with updated values",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "example": "Quinoa Salad Deluxe" },
+                "ingredients": { "type": "string", "example": "Quinoa, kale, avocado, cherry tomatoes" },
+                "instructions": { "type": "string", "example": "Mix ingredients and serve chilled" },
+                "cookTime": { "type": "string", "example": "25 minutes" },
+                "calories": { "type": "number", "example": 400 },
+                "servings": { "type": "number", "example": 3 },
+                "isVegetarian": { "type": "boolean", "example": true }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Recipe updated successfully" },
+          "400": { "description": "Validation failed or invalid ID" },
+          "404": { "description": "Recipe not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "delete": {
+        "tags": ["Recipes"],
+        "description": "Delete a recipe by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Recipe ID"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Recipe deleted successfully" },
+          "400": { "description": "Invalid recipe ID format" },
+          "404": { "description": "Recipe not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    }
+  }
+}

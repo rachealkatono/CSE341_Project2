@@ -1,0 +1,36 @@
+### Get all health tips
+GET http://localhost:3000/api/health-tips
+
+### Get a health tip by ID
+GET http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
+
+### Create a new health tip
+POST http://localhost:3000/api/health-tips
+Content-Type: application/json
+
+{
+  "title": "Stay Hydrated",
+  "author": "Dr. Racheal Katono",
+  "category": "Nutrition",
+  "published": "2024-05-10",
+  "summary": "Drinking water regularly boosts energy and brain function.",
+  "isFeatured": true,
+  "rating": 4.8
+}
+
+### Update a health tip by ID
+PUT http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
+Content-Type: application/json
+
+{
+  "title": "Stay Hydrated",
+  "author": "Dr. Racheal Katono",
+  "category": "Nutrition",
+  "published": "2024-05-10",
+  "summary": "Drinking water regularly boosts energy and brain function.",
+  "isFeatured": true,
+  "rating": 4.8
+}
+
+### Delete a health tip by ID
+DELETE http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
