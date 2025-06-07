@@ -39,9 +39,18 @@ function getDatabase() {
   return { db: () => db };
 }
 
+async function checkConnection() {
+  try {
+    const db = getDb();
+    await db.command({ ping: 1 });
+  } catch (err) {
+    throw new Error('MongoDB not connected');
+  }
+}
 module.exports = { 
   connectToDatabase, 
   initDb,
   getDb,
-  getDatabase
+  getDatabase,
+  checkConnection
 };

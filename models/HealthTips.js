@@ -8,17 +8,17 @@ class HealthTip {
 
   static async findAll() {
     const database = this.getDatabase();
-    return await database.collection('healthtips').find({}).toArray();
+    return await database.collection('Health').find({}).toArray();
   }
 
   static async findById(id) {
     const database = this.getDatabase();
-    return await database.collection('healthtips').findOne({ _id: new ObjectId(id) });
+    return await database.collection('Health').findOne({ _id: new ObjectId(id) });
   }
 
   static async create(healthTipData) {
     const database = this.getDatabase();
-    const result = await database.collection('healthtips').insertOne({
+    const result = await database.collection('Health').insertOne({
       ...healthTipData,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -28,7 +28,7 @@ class HealthTip {
 
   static async update(id, updateData) {
     const database = this.getDatabase();
-    const result = await database.collection('healthtips').updateOne(
+    const result = await database.collection('Health').updateOne(
       { _id: new ObjectId(id) },
       {
         $set: {
@@ -42,7 +42,7 @@ class HealthTip {
 
   static async delete(id) {
     const database = this.getDatabase();
-    return await database.collection('healthtips').deleteOne({ _id: new ObjectId(id) });
+    return await database.collection('Health').deleteOne({ _id: new ObjectId(id) });
   }
 }
 

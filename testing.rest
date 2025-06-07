@@ -1,5 +1,6 @@
 ### Get all health tips
-GET http://localhost:3000/api/health-tips
+GET https://cse341-project2-z10v.onrender.com/api-docs/health-tips
+
 
 ### Get a health tip by ID
 GET http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
