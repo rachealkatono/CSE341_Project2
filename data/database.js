@@ -1,56 +1,43 @@
-// data/database.js
+const dotenv = require('dotenv');
+dotenv.config();
 const { MongoClient } = require('mongodb');
+
 const uri = process.env.MONGODB_URI;
+const dbName = process.env.DB_NAME;
 
-if (!uri) {
-  throw new Error('Missing MongoDB URI in environment variables.');
-}
-
-let client;
 let db;
 
-async function connectToDatabase() {
-  if (!client) {
-    client = new MongoClient(uri);
-    await client.connect();
-    console.log('✅ Connected to MongoDB');
-    db = client.db('Health_db'); // Specify your database name here
+const initDb = async () => {
+  if (db) return db; // Already initialized
+
+  if (!uri) {
+    throw new Error('MONGODB_URI is not defined in .env');
   }
-  return client;
-}
 
-// Alternative function name for compatibility
-async function initDb() {
-  return await connectToDatabase();
-}
+  const client = await MongoClient.connect(uri);
+  db = client.db(dbName);
+  console.log('✅ MongoDB connected');
+  return db;
+};
 
-function getDb() {
+const getDatabase = () => {
   if (!db) {
-    throw new Error('Database not initialized. Call connectToDatabase first.');
+    throw new Error('Database not initialized. Call initDb() first.');
   }
   return db;
-}
+};
 
-// Alternative function name for compatibility
-function getDatabase() {
+const checkConnection = async () => {
   if (!db) {
-    throw new Error('Database not initialized. Call connectToDatabase first.');
+    throw new Error('Database not initialized');
   }
-  return { db: () => db };
-}
+  const admin = db.admin();
+  await admin.ping();
+  console.log('✅ MongoDB ping successful');
+};
 
-async function checkConnection() {
-  try {
-    const db = getDb();
-    await db.command({ ping: 1 });
-  } catch (err) {
-    throw new Error('MongoDB not connected');
-  }
-}
-module.exports = { 
-  connectToDatabase, 
+module.exports = {
   initDb,
-  getDb,
   getDatabase,
-  checkConnection
+  checkConnection,
 };

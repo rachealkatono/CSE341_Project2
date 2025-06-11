@@ -1,37 +1,137 @@
-### Get all health tips
-GET https://cse341-project2-z10v.onrender.com/api-docs/health-tips
+### Health Check
+GET http://localhost:3000/health
 
+### Debug Environment Variables
+GET http://localhost:3000/debug/env
 
-### Get a health tip by ID
-GET http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
+### Home Page
+GET http://localhost:3000/
 
-### Create a new health tip
-POST http://localhost:3000/api/health-tips
+### Login with GitHub
+GET http://localhost:3000/login
+
+### Logout
+GET http://localhost:3000/logout
+
+### ========================
+### RECIPES ENDPOINTS
+### ========================
+
+### Get all recipes
+GET http://localhost:3000/recipes
+
+### Get a single recipe by ID
+GET http://localhost:3000/recipes/6841e330cc8f14903304a707
+
+### Create a new recipe
+POST http://localhost:3000/recipes
+Content-Type: application/json
+
+{
+  "title": "Grilled Chicken Salad",
+  "ingredients": [
+    "chicken breast",
+    "lettuce",
+    "tomatoes",
+    "olive oil",
+    "lemon juice"
+  ],
+  "steps": [
+    "Grill chicken",
+    "Chop vegetables",
+    "Mix ingredients"
+  ],
+  "calories": 350,
+  "prepTime": 15,
+  "cookTime": 10,
+  "category": "Salad",
+  "isVegan": false
+}
+
+### Update a recipe by ID
+PUT http://localhost:3000/recipes/6841e330cc8f14903304a707
+Content-Type: application/json
+
+{
+  "title": "Grilled Chicken Salad Deluxe",
+  "ingredients": [
+    "chicken breast",
+    "romaine lettuce",
+    "cherry tomatoes",
+    "olive oil",
+    "lemon juice",
+    "avocado"
+  ],
+  "steps": [
+    "Grill seasoned chicken",
+    "Chop fresh vegetables",
+    "Combine and drizzle with dressing"
+  ],
+  "calories": 400,
+  "prepTime": 20,
+  "cookTime": 12,
+  "category": "Salad",
+  "isVegan": false
+}
+
+### Delete a recipe by ID
+DELETE http://localhost:3000/recipes/6841e330cc8f14903304a707
+
+### ========================
+### HEALTHTIPS ENDPOINTS
+### ========================
+
+### Get all healthtips
+GET http://localhost:3000/healthtips
+
+### Get a single healthtip by ID
+GET http://localhost:3000/healthtips/6841e3d8cc8f14903304a708
+
+### Create a new healthtip
+POST http://localhost:3000/healthtips
 Content-Type: application/json
 
 {
   "title": "Stay Hydrated",
-  "author": "Dr. Racheal Katono",
-  "category": "Nutrition",
-  "published": "2024-05-10",
-  "summary": "Drinking water regularly boosts energy and brain function.",
-  "isFeatured": true,
-  "rating": 4.8
+  "content": "Drink at least 8 glasses of water daily.",
+  "category": "Nutrition"
 }
 
-### Update a health tip by ID
-PUT http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
+### Update a healthtip by ID
+PUT http://localhost:3000/healthtips/6841e3d8cc8f14903304a708
 Content-Type: application/json
 
 {
-  "title": "Stay Hydrated",
-  "author": "Dr. Racheal Katono",
-  "category": "Nutrition",
-  "published": "2024-05-10",
-  "summary": "Drinking water regularly boosts energy and brain function.",
-  "isFeatured": true,
-  "rating": 4.8
+  "title": "Stay Hydrated and Energized",
+  "content": "Drink at least 8–10 glasses of water daily to maintain energy and focus.",
+  "category": "Nutrition"
 }
 
-### Delete a health tip by ID
-DELETE http://localhost:3000/api/health-tips/648ea2baf23c91b9c0a7d28c
+### Delete a healthtip by ID
+DELETE http://localhost:3000/healthtips/6841e3d8cc8f14903304a708
+
+### ========================
+### SWAGGER DOCUMENTATION
+### ========================
+
+### View API Documentation
+GET http://localhost:3000/api-docs
+
+### ========================
+### PRODUCTION TESTING (Render)
+### ========================
+
+### Health Check - Production
+GET https://cse341-project2-z10v.onrender.com/health
+
+### Get all recipes - Production
+GET https://cse341-project2-z10v.onrender.com/recipes
+
+### Get all healthtips - Production
+GET https://cse341-project2-z10v.onrender.com/healthtips
+
+### Get a specific recipe - Production
+GET https://cse341-project2-z10v.onrender.com/recipes/6841e330cc8f14903304a707
+
+### Get a specific healthtip - Production
+GET https://cse341-project2-z10v.onrender.com/healthtips/6841e3d8cc8f14903304a708

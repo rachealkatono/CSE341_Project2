@@ -1,163 +1,159 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/database');
-const HealthTip = require('../models/HealthTips'); // Fixed import path
+const Author = require('../models/healthtips');
 
-// DB connection middleware
+// Connection check middleware
 router.use(async (req, res, next) => {
   try {
-    // Check if database connection exists
-    if (!db.getDb) {
-      throw new Error('Database connection not available');
-    }
+    await db.checkConnection();
     next();
   } catch (error) {
     console.error('Database connection error:', error);
     return res.status(500).json({
       success: false,
-      message: 'Database connection failed',
+      message: 'Database connection failed❌',
       error: error.message
     });
   }
 });
 
-// GET all health tips
+// GET all healthtips
 router.get('/', async (req, res) => {
   try {
-    console.log('Fetching all health tips...');
-    const tips = await HealthTip.findAll();
-
-    console.log(`Found ${tips.length} health tips`);
-
-    res.json({
-      success: true,
-      count: tips.length,
-      data: tips
+    console.log('Fetching all healthtips...');
+    const healthtips = await healthtipr.findAll();
+    
+    console.log(`Found ${healthtips.length} healthtips`);
+    
+    res.json({ 
+      success: true, 
+      count: healthtips.length,
+      data: healthtips 
     });
   } catch (error) {
-    console.error('Error fetching health tips:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      details: 'Failed to fetch health tips'
+    console.error('Error in getAllhealthtip:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
     });
   }
 });
 
-// GET a single health tip by ID
+// GET single healthtip by ID
 router.get('/:id', async (req, res) => {
   try {
-    const tip = await HealthTip.findById(req.params.id);
-
-    if (!tip) {
-      return res.status(404).json({
-        success: false,
-        message: 'Health tip not found'
+    const { id } = req.params;
+    console.log('Fetching healthtip by ID:', id);
+    
+    const healthtip = await healthtip.findById(id);
+    if (!healthtip) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'healthtip not found' 
       });
     }
-
-    res.json({
-      success: true,
-      data: tip
+    
+    res.json({ 
+      success: true, 
+      data: healthtip 
     });
   } catch (error) {
-    console.error('Error fetching health tip:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
+    console.error('Error in gethealthtipById:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
     });
   }
 });
 
-// POST create a new health tip
+// POST create new healthtip
 router.post('/', async (req, res) => {
   try {
-    const { title, content, author, category } = req.body;
-
-    if (!title || !content) {
-      return res.status(400).json({
-        success: false,
-        message: 'Title and content are required'
+    const { name, email, bio } = req.body;
+    
+    if (!name) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Name is required' 
       });
     }
 
-    const tipData = {
-      title,
-      content,
-      author: author || 'Anonymous',
-      category: category || 'General',
+    const healthtipData = {
+      name,
+      email,
+      bio,
       createdAt: new Date(),
       updatedAt: new Date()
     };
 
-    const result = await HealthTip.create(tipData);
-    const newTip = await HealthTip.findById(result.insertedId);
+    const result = await healthtip.create(authorData);
+    const newhealthtip = await healthtip.findById(result.insertedId);
 
-    res.status(201).json({
-      success: true,
-      data: newTip,
-      message: 'Health tip created successfully'
+    res.status(201).json({ 
+      success: true, 
+      data: newhealthtip 
     });
   } catch (error) {
-    console.error('Error creating health tip:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
+    console.error('Error in createhealthtip:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
     });
   }
 });
 
-// PUT update a health tip
+// PUT update healthtip
 router.put('/:id', async (req, res) => {
   try {
+    const { id } = req.params;
     const updateData = { ...req.body, updatedAt: new Date() };
-
-    const result = await HealthTip.update(req.params.id, updateData);
-
+    
+    const result = await healthtip.update(id, updateData);
+    
     if (!result.matchedCount) {
-      return res.status(404).json({
-        success: false,
-        message: 'Health tip not found'
+      return res.status(404).json({ 
+        success: false, 
+        message: 'healthtip not found' 
       });
     }
 
-    const updatedTip = await HealthTip.findById(req.params.id);
-
-    res.json({
-      success: true,
-      data: updatedTip,
-      message: 'Health tip updated successfully'
+    const updatedhealthtip = await healthtip.findById(id);
+    res.json({ 
+      success: true, 
+      data: updatedhealthtip  
     });
   } catch (error) {
-    console.error('Error updating health tip:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
+    console.error('Error in updatehealthtip:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
     });
   }
 });
 
-// DELETE a health tip
+// DELETE healthtip
 router.delete('/:id', async (req, res) => {
   try {
-    const result = await HealthTip.delete(req.params.id);
-
+    const { id } = req.params;
+    const result = await healthtip.delete(id);
+    
     if (!result.deletedCount) {
-      return res.status(404).json({
-        success: false,
-        message: 'Health tip not found'
+      return res.status(404).json({ 
+        success: false, 
+        message: 'healthtip not found' 
       });
     }
 
-    res.json({
-      success: true,
-      message: 'Health tip deleted successfully'
+    res.json({ 
+      success: true, 
+      message: 'healthtip deleted successfully' 
     });
   } catch (error) {
-    console.error('Error deleting health tip:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message
+    console.error('Error in deletehealthtip:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
     });
   }
 });
