@@ -1,7 +1,7 @@
 const { ObjectId } = require('mongodb');
 const db = require('../data/database');
 
-class Recipe {
+class recipe {
   static getDatabase() {
     // Get the database instance instead of checking connection
     return db.getDatabase();
@@ -48,4 +48,4 @@ class Recipe {
   }
 }
 
-module.exports = Recipe;
+module.exports = recipe;

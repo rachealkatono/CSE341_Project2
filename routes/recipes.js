@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/database');
-const Book = require('../models/recipe');
+const recipe = require('../models/recipe');
 
 // Simplified middleware
 router.use(async (req, res, next) => {
@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     console.log('Fetching recipe with ID:', req.params.id);
-    const recipe = await recipe.findById(req.params.id);
+    const recipes = await recipes.findById(req.params.id);
     
     if (!recipe) {
       return res.status(404).json({ 
