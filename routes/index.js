@@ -18,8 +18,8 @@ router.get('/', (req, res) => {
       links: {
         login: '/login',
         logout: '/logout',
-        books: '/recipes',
-        authors: '/healthtips',
+        recipes: '/recipes',
+        healthtips: '/healthtips',
         apiDocs: '/api-docs'
       }
     });
