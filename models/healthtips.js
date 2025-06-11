@@ -1,7 +1,7 @@
 const { ObjectId } = require('mongodb');
 const db = require('../data/database');
 
-class HealthTips {
+class healthtip {
   static async findAll() {
     const database = db.getDatabase();
     return await database.collection('healthtips').find({}).toArray();
@@ -41,4 +41,4 @@ class HealthTips {
   }
 }
 
-module.exports = HealthTips;
+module.exports = healthtip;

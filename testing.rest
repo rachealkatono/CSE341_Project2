@@ -1,6 +1,7 @@
 ### Health Check
 GET http://localhost:3000/health
 
+
 ### Debug Environment Variables
 GET http://localhost:3000/debug/env
 

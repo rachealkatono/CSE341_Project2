@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/database');
-const Author = require('../models/healthtips');
+const healthtip = require('../models/healthtips');
 
 // Connection check middleware
 router.use(async (req, res, next) => {
@@ -22,7 +22,7 @@ router.use(async (req, res, next) => {
 router.get('/', async (req, res) => {
   try {
     console.log('Fetching all healthtips...');
-    const healthtips = await healthtipr.findAll();
+    const healthtips = await healthtip.findAll();
     
     console.log(`Found ${healthtips.length} healthtips`);
     
@@ -70,24 +70,22 @@ router.get('/:id', async (req, res) => {
 // POST create new healthtip
 router.post('/', async (req, res) => {
   try {
-    const { name, email, bio } = req.body;
+    const { title, content, category } = req.body;
     
-    if (!name) {
+    if (!title || !content || !category) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Name is required' 
+        message: 'Title, content, and category are required' 
       });
     }
 
     const healthtipData = {
-      name,
-      email,
-      bio,
-      createdAt: new Date(),
-      updatedAt: new Date()
+        title,
+        content,
+        category,
     };
 
-    const result = await healthtip.create(authorData);
+    const result = await healthtip.create(healthtipData);
     const newhealthtip = await healthtip.findById(result.insertedId);
 
     res.status(201).json({ 

@@ -5,7 +5,7 @@
     "description": "API for managing health tips and recipes with CRUD operations",
     "version": "1.0.0"
   },
-  "host": "cse341-project2-z10v.onrender.com",
+  "host": "cse341-project2-z10v.onrender.com", 
   "basePath": "/",
   "schemes": [
     "https"
@@ -41,10 +41,10 @@
             "required": true,
             "schema": {
               "type": "object",
-              "required": ["title", "description", "category"],
+              "required": ["title", "content", "category"],
               "properties": {
                 "title": { "type": "string", "example": "Drink Water" },
-                "description": { "type": "string", "example": "Stay hydrated by drinking 8 glasses of water daily." },
+                "content": { "type": "string", "example": "Stay hydrated by drinking 8 glasses of water daily." },
                 "category": { "type": "string", "example": "Nutrition" }
               }
             }
