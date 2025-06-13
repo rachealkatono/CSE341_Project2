@@ -232,7 +232,7 @@ router.get('/', (req, res) => {
       margin-bottom: 10px;
     }
     .nav-desc {
-      color: rgba(92, 37, 6, 0.8);
+      color:   rgba(92, 37, 6, 0.8);
       font-size: 0.9rem;
       line-height: 1.4;
     }
