@@ -5,10 +5,10 @@
     "description": "API for managing health tips and recipes with CRUD operations",
     "version": "1.0.0"
   },
-  "host": "localhost:3000", 
+  "host": "cse341-project2-z10v.onrender.com", 
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
